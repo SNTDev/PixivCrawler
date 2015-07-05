@@ -29,6 +29,7 @@ namespace PixivCrawler
     /// <summary>
     /// MainWindow.xaml에 대한 상호 작용 논리
     /// </summary>
+    /// 
     public partial class MainWindow : Window
     {
         WebBrowser PixivBrowser2 = new WebBrowser();
@@ -47,6 +48,13 @@ namespace PixivCrawler
             PixivBrowser.Navigate("https://www.secure.pixiv.net/login.php");
             Uri PixivLogin = new Uri("https://www.secure.pixiv.net/login.php");
             SearchButton.IsEnabled = false;
+                Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
+                    {
+                        FilePath.Text = System.AppDomain.CurrentDomain.BaseDirectory;
+                    }
+            ));
+    this.Dispatcher.Invoke(
+       (ThreadStart)(() => { }), DispatcherPriority.ApplicationIdle);
         }
 
         private void deletecookie()
@@ -177,13 +185,15 @@ namespace PixivCrawler
             }));
             this.Dispatcher.Invoke(
        (ThreadStart)(() => { }), DispatcherPriority.ApplicationIdle);
+
             //ImageList ImageClass = new ImageList(PixivBrowser, TagTextBox.Text,cookie);
+
             CollectImage ImageClass;
             try
             {
                 if (RadioButton1.IsChecked == true) ImageClass = new CollectImage(Int32.Parse(MainThread_Number.Text), this, Int32.Parse(StartPageTextBox.Text), Int32.Parse(EndPageTextBox.Text), Int32.Parse(BookMarkNumberTextBox.Text)
-                       , TagTextBox.Text, cookie);
-                else ImageClass = new CollectImage(Int32.Parse(MainThread_Number.Text),this, Int32.Parse(ImageNumber.Text), Int32.Parse(BookMarkNumberTextBox.Text), TagTextBox.Text, cookie);
+                       , TagTextBox.Text, cookie,FilePath.Text);
+                else ImageClass = new CollectImage(Int32.Parse(MainThread_Number.Text),this, Int32.Parse(ImageNumber.Text), Int32.Parse(BookMarkNumberTextBox.Text), TagTextBox.Text, cookie,FilePath.Text);
             }
             catch(Exception ex)
             {
@@ -229,6 +239,26 @@ namespace PixivCrawler
             }
 
             return container;
+        }
+
+        private void FolderBrowse_Click(object sender, RoutedEventArgs e)
+        {
+            var dialog = new System.Windows.Forms.FolderBrowserDialog();
+
+            dialog.SelectedPath = FilePath.Text;
+
+            var result = dialog.ShowDialog();
+
+            if(result==System.Windows.Forms.DialogResult.OK)
+            {
+                Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
+                    {
+                        FilePath.Text=dialog.SelectedPath;
+                    }
+            ));
+    this.Dispatcher.Invoke(
+       (ThreadStart)(() => { }), DispatcherPriority.ApplicationIdle);
+                }
         }
     }
 }

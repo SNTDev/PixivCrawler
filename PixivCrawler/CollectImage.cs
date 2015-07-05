@@ -43,13 +43,13 @@ namespace PixivCrawler
         int BookMark = 0;
         int MainThreadCountNumber = 0;
         int MainThreadCounter = 0;
-        public CollectImage(int MainThreadCountNumber,MainWindow Main,int StartPage,int EndPage,int BookMark,String Tag, CookieContainer cookie)
+        public CollectImage(int MainThreadCountNumber,MainWindow Main,int StartPage,int EndPage,int BookMark,String Tag, CookieContainer cookie,String Path)
         {
             this.Tag = Tag;
             this.cookie = cookie;
             this.BookMark = BookMark;
             this.MainThreadCountNumber = MainThreadCountNumber;
-            FolderPath = System.DateTime.Now.ToString("yyyy-MM-dd") + "-" + Tag + "-" + "북마크 " + BookMark + "이상";
+            FolderPath = Path + System.DateTime.Now.ToString("yyyy-MM-dd") + "-" + Tag + "-" + "북마크 " + BookMark + "이상";
             //FolderPath = FolderPath;
             MaxCount = -1;
 
@@ -70,12 +70,12 @@ namespace PixivCrawler
             Main.SearchButtonMakeEnable();
         }
 
-        public CollectImage(int MainThreadCountNumber,MainWindow Main, int ImageNumber, int BookMark, String Tag, CookieContainer cookie)
+        public CollectImage(int MainThreadCountNumber,MainWindow Main, int ImageNumber, int BookMark, String Tag, CookieContainer cookie,String Path)
         {
             this.Tag = Tag;
             this.cookie = cookie;
             this.BookMark = BookMark;
-            FolderPath = System.DateTime.Now.ToString("yyyy-MM-dd") + "-" + Tag + "-" + "북마크 " + BookMark + "이상";
+            FolderPath = Path + System.DateTime.Now.ToString("yyyy-MM-dd") + "-" + Tag + "-" + "북마크 " + BookMark + "이상";
             FolderPath = FolderPath;
             MaxCount = ImageNumber;
 
