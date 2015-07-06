@@ -43,6 +43,7 @@ namespace PixivCrawler
         int BookMark = 0;
         int MainThreadCountNumber = 0;
         int MainThreadCounter = 0;
+        bool StopSw=false;
         public CollectImage(int MainThreadCountNumber,MainWindow Main,int StartPage,int EndPage,int BookMark,String Tag, CookieContainer cookie,String Path)
         {
             this.Tag = Tag;
@@ -66,8 +67,14 @@ namespace PixivCrawler
                 MainThreadCounter++;
                 Thread Th = new Thread(new ParameterizedThreadStart(Start_Page_Thread));
                 Th.Start(i);
+                if (StopSw) break;
             }
             Main.SearchButtonMakeEnable();
+        }
+
+        public void Stop_Collect()
+        {
+            StopSw=true;
         }
 
         public CollectImage(int MainThreadCountNumber,MainWindow Main, int ImageNumber, int BookMark, String Tag, CookieContainer cookie,String Path)
@@ -93,6 +100,7 @@ namespace PixivCrawler
                 Thread Th = new Thread(new ParameterizedThreadStart(Start_Page_Thread));
                 Th.Start(i);
                 if (MaxCount > 0 && Count >= MaxCount) break;
+                if (StopSw) break;
             }
 
             Main.SearchButtonMakeEnable();
@@ -364,6 +372,7 @@ namespace PixivCrawler
 
         private void Get_SearchList(int PageNumber)
         {
+            int ImageCount=0;
             URL = "http://www.pixiv.net/search.php?word=" + Tag + "&order=date_d&p=" + PageNumber.ToString();
             //URL = "http://www.pixiv.net/member_illust.php?mode=medium&illust_id=50311630";
             //URL = "http://www.pixiv.net/member_illust.php?mode=medium&illust_id=50311108";
@@ -407,9 +416,11 @@ namespace PixivCrawler
                     T.Start(Tuple.Create(SubURL, Count, Title));
                     Count++;
                 }
+                ImageCount++;
                 if (MaxCount > 0 && Count >= MaxCount) break;
                 StIdx = content.IndexOf("<li class=\"image-item \">", StIdx + 1);
             }
+            if (ImageCount < 18) Stop_Collect();
         }
 
         private void _Get_SearchList(object sender, NavigationEventArgs e)
