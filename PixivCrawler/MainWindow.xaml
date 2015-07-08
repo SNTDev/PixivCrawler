@@ -14,6 +14,7 @@
         <Button x:Name="FolderBrowse" Content="Browse" HorizontalAlignment="Left" Height="23" Margin="627,313,0,0" VerticalAlignment="Top" Width="114" Click="FolderBrowse_Click"/>
         <TextBlock HorizontalAlignment="Left" Height="16" Margin="309,254,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="689" RenderTransformOrigin="0.5,0.5"><Run Text="File Path"/><LineBreak/><Run/><LineBreak/><Run/><LineBreak/><Run/><LineBreak/><Run Text=""/></TextBlock>
         <TextBlock x:Name="FilePath" HorizontalAlignment="Left" Height="17" Margin="309,275,0,0" TextWrapping="Wrap" Text="C:\\" VerticalAlignment="Top" Width="766"/>
+        <Button Content="Button" HorizontalAlignment="Left" Height="23" Margin="23,296,0,0" VerticalAlignment="Top" Width="113" Click="Button_Click"/>
         <TabControl HorizontalAlignment="Left" Height="244" Margin="287,10,0,0" VerticalAlignment="Top" Width="788">
             <TabItem Header="Tag">
                 <Viewbox Stretch="Fill" Height="213" Width="1037" Margin="-261,0,-3,0">

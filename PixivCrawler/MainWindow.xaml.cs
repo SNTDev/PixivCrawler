@@ -260,5 +260,10 @@ namespace PixivCrawler
        (ThreadStart)(() => { }), DispatcherPriority.ApplicationIdle);
                 }
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            new DailyCollect(cookie, (PixivBrowser.Document as HTMLDocument).cookie);
+        }
     }
 }

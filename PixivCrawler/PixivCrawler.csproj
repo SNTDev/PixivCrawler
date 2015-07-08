@@ -70,6 +70,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="CollectImage.cs" />
+    <Compile Include="DailyCollect.cs" />
     <Compile Include="ImageList.xaml.cs">
       <DependentUpon>ImageList.xaml</DependentUpon>
     </Compile>
