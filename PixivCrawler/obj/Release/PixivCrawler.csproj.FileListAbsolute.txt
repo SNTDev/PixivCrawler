@@ -73,3 +73,6 @@ D:\MINE\Source\PixivCrawlerV3\PixivCrawler\obj\Release\PixivCrawler.g.resources
 D:\MINE\Source\PixivCrawlerV3\PixivCrawler\obj\Release\PixivCrawler.Properties.Resources.resources
 D:\MINE\Source\PixivCrawlerV3\PixivCrawler\obj\Release\PixivCrawler.csproj.GenerateResource.Cache
 D:\MINE\Source\PixivCrawlerV3\PixivCrawler\bin\Release\PixivCrawler.pdb
+D:\MINE\Source\PixivCrawlerV3\PixivCrawler\bin\Release\HtmlAgilityPack.dll
+D:\MINE\Source\PixivCrawlerV3\PixivCrawler\bin\Release\HtmlAgilityPack.pdb
+D:\MINE\Source\PixivCrawlerV3\PixivCrawler\bin\Release\HtmlAgilityPack.xml

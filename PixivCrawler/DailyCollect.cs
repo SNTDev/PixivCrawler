@@ -22,34 +22,62 @@ using System.Windows.Threading;
 using System.Threading;
 using System.IO;
 using System.Web;
+using System.Windows.Forms;
 using mshtml;
+using HtmlAgilityPack;
 namespace PixivCrawler
 {
     class DailyCollect
     {
-        WebBrowser DailyBrowser = new WebBrowser();
+        //WebBrowser DailyBrowser = new WebBrowser();
         CookieContainer LoginCookie;
         String LoginCookieString;
+        System.Windows.Forms.WebBrowser DailyBrowser;
 
         public DailyCollect(CookieContainer LoginCookie,String LoginCookieString)
         {
+            DailyBrowser = new System.Windows.Forms.WebBrowser();
+            DailyBrowser.AllowNavigation = true;
+            DailyBrowser.ScriptErrorsSuppressed = true;
+            //DailyBrowser.BeginInit();
             this.LoginCookieString = LoginCookieString;
-            DailyBrowser.Loaded += delegate
-            {
-                DailyBrowser.LoadCompleted += LoadComp;
-                DailyBrowser.Navigate("http://www.pixiv.net/ranking.php?mode=daily");
-            };
+            //T.LoadCompleted += LoadComp;
+            //DailyBrowser.Url = new Uri("http://www.pixiv.net/ranking.php?mode=daily");
+            DailyBrowser.Navigate("https://www.secure.pixiv.net/login.php");
+            DailyBrowser.Height = 1000;
+            DailyBrowser.Width = 1000;
+            DailyBrowser.DocumentCompleted += LoadComp;
         }
 
-        private void LoadComp(object sender,NavigationEventArgs e)
+        private void LoadComp(object sender,EventArgs e)
         {
-            HTMLDocument DailyDoc = DailyBrowser.Document as HTMLDocument;
+            DailyBrowser.Document.Cookie = LoginCookieString;
+            DailyBrowser.DocumentCompleted -= LoadComp;
+            DailyBrowser.DocumentCompleted += RefreshComp;
+            DailyBrowser.Refresh();
+        }
 
-            DailyDoc.cookie = LoginCookieString;
+        private void RefreshComp(object sender,EventArgs e)
+        {
+            DailyBrowser.DocumentCompleted -= RefreshComp;
+            Go();
         }
 
         public void Go()
         {
+            //HtmlDocument Doc = DailyBrowser.Document;
+            HTMLDocument msDoc = DailyBrowser.Document.DomDocument as HTMLDocument;
+            int count = 0;
+
+            /*foreach(HtmlElement Ele in Doc.All)
+            {
+                if(Ele.GetAttribute("className")=="ranking-item")
+                {
+                    count++;
+                }
+            }*/
+
+            return;
         }
     }
 }
